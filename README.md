@@ -7,8 +7,12 @@ automatically notify the occupants of the home when the laundry is done.
 ## Features 
 - Monitor the washing machine until it finishes the cycle
 - Send Telegram alerts to the person that started the wash cycle
+- Announces that the laundry is done on Google Home speakers   
 - Repeat the alerts until the washer door is opened
 - Warn if the washer door is closed after a cycle (the door should stay open to prevent mildew)
+
+## Video
+[![Youtube Video](https://img.youtube.com/vi/NPUZ75uu0qo/0.jpg)](https://www.youtube.com/watch?v=NPUZ75uu0qo)
 
 ## Requirements 
 
