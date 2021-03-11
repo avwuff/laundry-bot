@@ -27,11 +27,15 @@ The wifi smart plug will be designed to work with Tuya/Smart Life out of the box
 We will convert this to use ESPHome.
 
 1. Create a new device in ESPHome.  Give it a good name, and just select 'Generic ESP8266' for the type.
+
 ![config](images/config1.png)   
+
 1. Configure your wifi credentials.
 1. Finish the configuration and wait for it to build.
 1. Download the binary file. Click the hamburger menu next to your ESPHome node and select Compile.
+
 ![config](images/config2.png)   
+
 1. Click 'Download Binary' and save the .bin file.
 
 1. Using a laptop running Linux with wifi, follow the steps here: [tuya-convert](https://github.com/ct-Open-Source/tuya-convert)  
@@ -50,7 +54,9 @@ We will convert this to use ESPHome.
 1. Click 'Upload'.  The new configuration will be compiled and uploaded to your smart plug.
 1. Switch to the 'Integrations' section in Home Assistant.  There will now be a new option to add a new integration with the name of your smart plug.
 1. You should now see the smart plug available in Home Assistant.  Try turning it on and off!
+   
    ![config](images/config3.png)
+   
 1. Plug your washing machine into this plug.  
    My washer uses 0W when it is off and after the wash cycle completes, yours may be different.   
 
@@ -118,6 +124,7 @@ At this point, when you change the value of Laundry Line 1, the updated text sho
 1. Copy the files from the [python_scripts](python_scripts) directory into there.
 1. Modify the files to match the entity IDs you created earlier, specifically for your plug, which is probably not called 'avwasher'.
 1. Use the `Developer Tools` page in Home Assistant to perform a `python_script.reload` service call.  This will refresh all the scripts.
+
    ![config](images/config4.png)   
 
 You can test if your python scripts are working by performing a python_script.start_laundry service call.  
