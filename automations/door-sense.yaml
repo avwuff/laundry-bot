@@ -1,0 +1,18 @@
+alias: Laundry - Door Sense
+description: ''
+trigger:
+  - type: turned_off
+    platform: device
+    device_id: 4a5dda5b56786debb73cf601ac504bf1
+    entity_id: binary_sensor.door_sense
+    domain: binary_sensor
+condition:
+  - condition: state
+    entity_id: input_boolean.laundrydone
+    state: 'on'
+action:
+  - service: python_script.end_laundry
+    data: {}
+  - service: python_script.check_laundry
+    data: {}
+mode: single

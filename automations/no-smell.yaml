@@ -1,0 +1,16 @@
+alias: Laundry - Ensure Door is Open
+description: ''
+trigger:
+  - type: turned_on
+    platform: device
+    device_id: 4a5dda5b56786debb73cf601ac504bf1
+    entity_id: binary_sensor.door_sense
+    domain: binary_sensor
+condition:
+  - condition: state
+    entity_id: input_boolean.laundryinuse
+    state: 'off'
+action:
+  - service: python_script.door_reminder
+    data: {}
+mode: single

@@ -1,0 +1,10 @@
+alias: Check Laundry
+description: ''
+trigger:
+  - platform: time_pattern
+    seconds: /5
+condition: []
+action:
+  - service: python_script.check_laundry
+    data: {}
+mode: single

@@ -1,0 +1,135 @@
+esphome:
+  name: avwasher-controller
+  platform: ESP8266
+  board: nodemcuv2
+
+wifi:
+  ssid: "your SSID here"
+  password: "your password here"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Avwasher-Controller"
+    password: "abcdef"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+
+# buttons
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: D0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Button 1"
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: D3
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Button 2"
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: D4
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Button 3"
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: D6
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Button 4"
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: D7
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Button 5"
+    filters:
+      - delayed_on: 10ms
+  - platform: gpio
+    pin:
+      number: 10
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Door Sense"
+    filters:
+      - delayed_on: 10ms
+
+# Variables
+globals:
+  - id: backlight_state
+    type: int
+    restore_value: no
+    initial_value: '1'
+
+# backlight control
+switch:
+  - platform: template
+    name: "LCD Backlight"
+    id: "backlight"
+    lambda: |-
+      if (id(backlight_state) == 1) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      - lambda: |-
+          id(mydisplay).backlight();
+          id(backlight_state) = 1;
+    turn_off_action:
+      - lambda: |-
+          id(mydisplay).no_backlight();
+          id(backlight_state) = 0;
+
+# the lines of text for the LCD display.
+text_sensor:
+  - platform: homeassistant
+    id: line1
+    entity_id: input_text.laundryline1
+    internal: true
+  - platform: homeassistant
+    id: line2
+    entity_id: input_text.laundryline2
+    internal: true
+  - platform: homeassistant
+    id: line3
+    entity_id: input_text.laundryline3
+    internal: true
+  - platform: homeassistant
+    id: line4
+    entity_id: input_text.laundryline4
+    internal: true
+
+i2c:
+  sda: D2
+  scl: D1
+
+display:
+  - platform: lcd_pcf8574
+    dimensions: 20x4
+    address: 0x27
+    id: mydisplay
+    lambda: |-
+      it.print(0, 0, id(line1).state);
+      it.print(0, 1, id(line2).state);
+      it.print(0, 2, id(line3).state);
+      it.print(0, 3, id(line4).state);

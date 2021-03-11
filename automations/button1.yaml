@@ -1,0 +1,16 @@
+alias: Laundry - Button 1 - Av
+description: ''
+trigger:
+  - type: turned_on
+    platform: device
+    device_id: 4a5dda5b56786debb73cf601ac504bf1
+    entity_id: binary_sensor.button_1
+    domain: binary_sensor
+condition: []
+action:
+  - service: python_script.start_laundry
+    data:
+      name: Av
+  - service: python_script.check_laundry
+    data: {}
+mode: single
